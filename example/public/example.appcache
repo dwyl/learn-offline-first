@@ -10,8 +10,7 @@ styles.css
 
 # js files
 script.js
-localforage.min.js
 
 NETWORK:
 *
-# v0.0.25
+# v0.0.27
