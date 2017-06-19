@@ -1,7 +1,8 @@
 var appCache = window.applicationCache;
 
-appCache.update();
-
+if (appCache) {
+  appCache.update();
+}
 if (appCache.status === appCache.UPDATEREADY) {
   appCache.swapCache();
 }
@@ -16,12 +17,12 @@ var decDom = document.querySelector('.decrement');
 var count = document.querySelector('.count');
 var model = 0;
 
-localforage.getItem('model').then(storedModel => {
-  if (storedModel) {
-    model = storedModel;
-    update(model, count);
-  }
-});
+var storedModel = window.localStorage.getItem('model');
+
+if (storedModel) {
+  model = storedModel;
+  update(model, count);
+}
 
 function inc(model) {
   return model + 1;
@@ -38,14 +39,10 @@ function update(newModel, element) {
 
 incDom.addEventListener('click', function() {
   update(inc(model), count);
-  localforage.setItem('model', model).then(() => {
-    console.log('model stored in local storage');
-  });
+  window.localStorage.setItem('model', model);
 });
 
 decDom.addEventListener('click', function() {
   update(dec(model), count);
-  localforage.setItem('model', model).then(() => {
-    console.log('model stored in local storage');
-  });
+  window.localStorage.setItem('model', model);
 });
