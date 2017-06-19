@@ -1,6 +1,7 @@
 CACHE MANIFEST
 
 # Offline cache v1
+CACHE:
 # html files
 index.html
 
@@ -9,3 +10,7 @@ styles.css
 
 # js files
 script.js
+
+NETWORK:
+*
+# v0.0.18
