@@ -100,6 +100,16 @@ var greeting = localStorage.getItem("greeting");
 console.log(greeting); // Hello
 ```
 
+#### Checking if the client is online
+Another aspect of offline first apps is checking whether the user is online or offline and adjusting your app's behaviour accordingly.
+
+For example, if you know the user is offline, you can make sure not to send off any information to your database, and instead just use your local storage, then, when the user comes back online, send all the info off!
+
+This can be done with `navigator.onLine` which will be a boolean value, `true` for online and `false` for offline.
+There are also `events` for when the browser goes offline or comes offline. On IE8 these events are on `document.body`, on all other browsers they are on `window`.
+
+Check out our example to see how they're used!
+
 #### Options for storing application state locally
 
 In our example we've used localstorage as it has awesome :heart_eyes: browser compatibility and the api is quite straightforward to use. However, there are more modern solutions to storing application state locally.
