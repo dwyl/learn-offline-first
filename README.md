@@ -21,13 +21,24 @@ There are two widely used methods for offline first apps, **Service Workers** an
 ## Application Cache
 
 **Advantages**:
-- Supports all modern browsers including Safari (desktop and iOS)
-- Easy to set up
-- Can be combined with service workers
++ Supports all modern browsers including Safari (desktop and iOS)
++ Easy to set up
++ Can be combined with service workers
 
 **Disadvantages**:
-- As far as we know there's no way to make operations wait for a connection to be established - even when the website isn't open in browser - before actioning them. With service workers this is achieved using `background sync`.
++ As far as we know there's no way to make operations wait for a connection to be established - even when the website isn't open in browser - before actioning them. With service workers this is achieved using `background sync`.
 
+## Service workers
+
+**Advantages**
++ Lots of recent and good resources of how to use them
++ Can do background-sync and push notifications (as they continue to run when the website is closed)
+
+**Disadvantages**
++ Only currently supported by Safari and Firefox.
++ Uses promises, so not very beginner friendly
+
+Since `Application Cache` is supported on all modern browsers (IE8 onwards), we're going to use it for our example. So, let's get stuck in!
 
 ## Building your first offline first app
 
