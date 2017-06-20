@@ -22,34 +22,42 @@ appCache.addEventListener('updateready', function(e) {
 var incDom = document.querySelector('.increment');
 var decDom = document.querySelector('.decrement');
 var count = document.querySelector('.count');
-// Initialise the counter model
+// Initialise the counter
 var model = 0;
 
 var storedModel = window.localStorage.getItem('model');
-
+// Check if there's a storedModel
 if (storedModel) {
+  // Variables coming from localStorage are always strings so we'll need to
+  // turn it into a number if we want to use it with our counter
   model = Number(storedModel);
+  // Update the counter
   update(model, count);
 }
 
+// Increment the counter
 function inc(model) {
   return model + 1;
 }
 
+// Decrement the counter
 function dec(model) {
   return model - 1;
 }
 
+// Update both the counter and the model
 function update(newModel, element) {
   model = newModel;
   element.innerText = model;
   window.localStorage.setItem('model', model);
 }
 
+// Increment the counter when there's a click event on the + button
 incDom.addEventListener('click', function() {
   update(inc(model), count);
 });
 
+// decrement the counter when there's a click event on the - button
 decDom.addEventListener('click', function() {
   update(dec(model), count);
 });
