@@ -35,7 +35,7 @@ There are two widely used methods for offline first apps, **Service Workers** an
 + Can do background-sync and push notifications (as they continue to run when the website is closed)
 
 **Disadvantages**
-+ Only currently supported by Safari and Firefox.
++ Only currently supported by Chrome and Firefox.
 + Uses promises, so not very beginner friendly
 
 Since `Application Cache` is supported on all modern browsers (IE8 onwards), we're going to use it for our example. So, let's get stuck in!
