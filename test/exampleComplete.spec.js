@@ -17,9 +17,19 @@ global.document = DOM.window.document;
 global.window = DOM.window;
 global.navigator = { onLine: true };
 
+// Initialise localStorage to check the initial model is set from it
+localStorage.setItem('model', '5');
+
 const { inc, dec, update } = require('./../example-complete/public/script');
 
 const count = document.querySelector('.count');
+
+test('The counter gets initial state from localStorage if it exists', t => {
+  let result = count.textContent;
+  let expected = '5';
+  t.equal(result, expected, 'localStorage initialised count correctly at 5');
+  t.end();
+});
 
 test('tests dec decrements and inc increments', t => {
   let result = dec(1);
@@ -37,6 +47,7 @@ test('update updates an element', t => {
   let result = count.textContent;
   let expected = '5';
   t.equal(result, expected, 'update with 5 updates element to 5');
+
   update(0, count);
   result = count.textContent;
   expected = '0';
