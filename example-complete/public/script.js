@@ -48,7 +48,7 @@ function dec(model) {
 // Update both the counter and the model
 function update(newModel, element) {
   model = newModel;
-  element.innerText = model;
+  element.textContent = model;
   window.localStorage.setItem('model', model);
 }
 
@@ -66,19 +66,19 @@ decDom.addEventListener('click', function() {
 var onlineStatusDom = document.querySelector('.online-status');
 // navigator.onLine will be true when online and false when offline. We update the text in the online status element in the dom to reflect the online status from navigator.onLine
 if (navigator.onLine) {
-  onlineStatusDom.innerText = 'online';
+  onlineStatusDom.textContent = 'online';
 } else {
-  onlineStatusDom.innerText = 'offline';
+  onlineStatusDom.textContent = 'offline';
 }
 
 // we use the 'online' and 'offline' events to update the online/offline notification to the user
 // in IE8 the offline/online events exist on document.body rather than window, so make sure to reflect that in your code!
 window.addEventListener('offline', function(e) {
-  onlineStatusDom.innerText = 'offline';
+  onlineStatusDom.textContent = 'offline';
 });
 
 window.addEventListener('online', function(e) {
-  onlineStatusDom.innerText = 'online';
+  onlineStatusDom.textContent = 'online';
 });
 
 if (typeof module !== 'undefined' && module.exports) {
