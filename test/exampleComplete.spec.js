@@ -69,3 +69,15 @@ test('Tests that clicking the + increments the count', t => {
   t.equal(result, expected, 'Count after click is 1');
   t.end();
 });
+
+test('Update also updates localStorage', t => {
+  let result = localStorage.getItem('model');
+  let expected = '1';
+  t.equal(result, expected, 'localstorage model is initially 1');
+
+  update(5, count);
+  result = localStorage.getItem('model');
+  expected = '5';
+  t.equal(result, expected, 'after update localstorage model is 5');
+  t.end();
+});
