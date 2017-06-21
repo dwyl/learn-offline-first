@@ -7,8 +7,7 @@
     "example": "example"
   },
   "scripts": {
-    "test": "node test/test.spec | tap-spec",
-    "test2": "node test/exampleComplete.spec | tap-spec"
+    "test": "tape test/*.js | tap-spec"
   },
   "repository": {
     "type": "git",

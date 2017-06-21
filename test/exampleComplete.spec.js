@@ -56,6 +56,7 @@ test('update updates an element', t => {
 });
 
 test('Tests that clicking the - decrements the count', t => {
+  update(0, count); // reset count to 0
   let result = count.textContent;
   let expected = '0';
   t.equal(result, expected, 'initial count is 0');

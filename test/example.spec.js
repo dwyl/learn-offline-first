@@ -8,7 +8,7 @@ const html = fs.readFileSync(
 );
 const DOM = new JSDOM(html);
 
-GLOBAL.document = DOM.window.document;
+global.document = DOM.window.document;
 
 const { inc, dec, update } = require('./../example/public/script');
 
@@ -41,6 +41,8 @@ test('update updates an element', t => {
 });
 
 test('Tests that clicking the - decrements the count', t => {
+  update(0, count);
+
   let result = count.textContent;
   let expected = '0';
   t.equal(result, expected, 'initial count is 0');
