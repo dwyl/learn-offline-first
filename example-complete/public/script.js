@@ -1,20 +1,20 @@
-// Store application cache as a handy short variable
-var appCache = window.applicationCache;
-// Only run if the appCache isn't busy
-if (appCache.status === appCache.IDLE) {
-  // Force check for an update
-  appCache.update();
-}
-// Check for an available cache update
-if (appCache.status === appCache.UPDATEREADY) {
-  // Save the new content to the cache
-  appCache.swapCache();
-}
-// Listen for updates
-appCache.addEventListener('updateready', function(e) {
-  // Reload the page when the cache is updated
-  window.location.reload();
-});
+// // Store application cache as a handy short variable
+// var appCache = window.applicationCache;
+// // Only run if the appCache isn't busy
+// if (appCache.status === appCache.IDLE) {
+//   // Force check for an update
+//   appCache.update();
+// }
+// // Check for an available cache update
+// if (appCache.status === appCache.UPDATEREADY) {
+//   // Save the new content to the cache
+//   appCache.swapCache();
+// }
+// // Listen for updates
+// appCache.addEventListener('updateready', function(e) {
+//   // Reload the page when the cache is updated
+//   window.location.reload();
+// });
 
 // ----- Counter stuff
 
@@ -80,3 +80,11 @@ window.addEventListener('offline', function(e) {
 window.addEventListener('online', function(e) {
   onlineStatusDom.innerText = 'online';
 });
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    inc: inc,
+    dec: dec,
+    update: update,
+  };
+}
