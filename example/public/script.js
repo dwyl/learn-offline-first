@@ -4,6 +4,17 @@
 var incDom = document.querySelector('.increment');
 var decDom = document.querySelector('.decrement');
 var count = document.querySelector('.count');
+
+// Increment the counter when there's a click event on the + button
+incDom.addEventListener('click', function() {
+  update(inc(model), count);
+});
+
+// decrement the counter when there's a click event on the - button
+decDom.addEventListener('click', function() {
+  update(dec(model), count);
+});
+
 // Initialise the counter
 var model = 0;
 
@@ -20,15 +31,13 @@ function dec(model) {
 // Update both the counter and the model
 function update(newModel, element) {
   model = newModel;
-  element.innerText = model;
+  element.textContent = model;
 }
 
-// Increment the counter when there's a click event on the + button
-incDom.addEventListener('click', function() {
-  update(inc(model), count);
-});
-
-// decrement the counter when there's a click event on the - button
-decDom.addEventListener('click', function() {
-  update(dec(model), count);
-});
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    inc: inc,
+    dec: dec,
+    update: update,
+  };
+}

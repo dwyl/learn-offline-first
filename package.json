@@ -1,0 +1,27 @@
+{
+  "name": "learn-offline-first",
+  "version": "1.0.0",
+  "description": "Learn how to build web apps that can be used offline",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "node test/test.spec | tap-spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dwyl/learn-offline-first.git"
+  },
+  "author": "@dwyl & friends!",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dwyl/learn-offline-first/issues"
+  },
+  "homepage": "https://github.com/dwyl/learn-offline-first#readme",
+  "devDependencies": {
+    "jsdom": "^11.0.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.3"
+  }
+}
