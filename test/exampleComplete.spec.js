@@ -137,8 +137,8 @@ test('Testing online-status/navigator.onLine', t => {
 });
 
 test('Testing online/offline events effecting online-status', t => {
-  const goOnline = new window.Event('online', { bubbles: true });
-  document.dispatchEvent(goOnline);
+  const goOnline = new window.Event('online');
+  window.dispatchEvent(goOnline);
   let result = document.querySelector('.online-status').textContent;
   let expected = 'online';
   t.equal(
@@ -147,8 +147,8 @@ test('Testing online/offline events effecting online-status', t => {
     'online-status is "online" after online event fired'
   );
 
-  const goOffline = new window.Event('offline', { bubbles: true });
-  document.dispatchEvent(goOffline);
+  const goOffline = new window.Event('offline');
+  window.dispatchEvent(goOffline);
   result = document.querySelector('.online-status').textContent;
   expected = 'offline';
   t.equal(
