@@ -245,6 +245,51 @@ test('Test the app runs swap on start if appcache.status is UPDATEREADY', t => {
   t.end();
 });
 
+test('Test event listener for updateready', t => {
+  const newDOM = new JSDOM(html); // resets dom
+  document = newDOM.window.document; // reset global document
+  window = newDOM.window;
+  window.localStorage = localStorage;
+
+  let updateRun = false;
+  let swapRun = false;
+  const updateCache = () => {
+    updateRun = true;
+  };
+  const swapCache = () => {
+    swapRun = true;
+  };
+  let reloadRun = false;
+  newDOM.window.location.reload = () => {
+    reloadRun = true;
+  };
+
+  window.applicationCache = {
+    status: '4',
+    IDLE: '1',
+    UPDATEREADY: '4',
+    update: updateCache,
+    swapCache: swapCache,
+    addEventListener: window.addEventListener,
+    Event: window.Event,
+    dispatchEvent: window.dispatchEvent,
+  };
+
+  // decache the script to test if it re-initialises with localStorage
+  decache('./../example-complete/public/script');
+  // re-require the script
+  let { inc, dec, update } = require('./../example-complete/public/script');
+
+  t.ok(!reloadRun, 'reloadRun should not be true before event triggered');
+
+  const updateReadyEvent = new window.applicationCache.Event('updateready');
+
+  window.applicationCache.dispatchEvent(updateReadyEvent);
+
+  t.ok(reloadRun, 'reloadRun should be true once event has been triggered');
+  t.end();
+});
+
 test('Reset the globals and remove model from localStorage scratch', t => {
   document = null;
   window = null;
