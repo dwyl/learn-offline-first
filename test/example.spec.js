@@ -7,21 +7,18 @@ const html = fs.readFileSync(
   'utf8'
 );
 const DOM = new JSDOM(html);
-
-GLOBAL.document = DOM.window.document;
+global.document = DOM.window.document;
 
 const { inc, dec, update } = require('./../example/public/script');
 
 const count = document.querySelector('.count');
 
 test('tests dec decrements and inc increments', t => {
+  global.document = DOM.window.document;
   let result = dec(1);
   let expected = 0;
   t.equal(result, expected, 'dec(1) returns 0');
 
-  console.log(DOM.window.navigator.onLine);
-  DOM.window.navigator.onLine = false;
-  console.log(DOM.window.navigator);
   result = inc(0);
   expected = 1;
   t.equal(result, expected, 'inc(0) returns 1');
@@ -41,6 +38,8 @@ test('update updates an element', t => {
 });
 
 test('Tests that clicking the - decrements the count', t => {
+  update(0, count);
+
   let result = count.textContent;
   let expected = '0';
   t.equal(result, expected, 'initial count is 0');
@@ -63,5 +62,11 @@ test('Tests that clicking the + increments the count', t => {
   result = count.textContent;
   expected = '1';
   t.equal(result, expected, 'Count after click is 1');
+  t.end();
+});
+
+test('Reset the global document to null', t => {
+  document = null;
+  t.pass('Reset');
   t.end();
 });

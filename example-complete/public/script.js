@@ -1,20 +1,20 @@
-// Store application cache as a handy short variable
-var appCache = window.applicationCache;
-// Only run if the appCache isn't busy
-if (appCache.status === appCache.IDLE) {
-  // Force check for an update
-  appCache.update();
-}
-// Check for an available cache update
-if (appCache.status === appCache.UPDATEREADY) {
-  // Save the new content to the cache
-  appCache.swapCache();
-}
-// Listen for updates
-appCache.addEventListener('updateready', function(e) {
-  // Reload the page when the cache is updated
-  window.location.reload();
-});
+// // Store application cache as a handy short variable
+// var appCache = window.applicationCache;
+// // Only run if the appCache isn't busy
+// if (appCache.status === appCache.IDLE) {
+//   // Force check for an update
+//   appCache.update();
+// }
+// // Check for an available cache update
+// if (appCache.status === appCache.UPDATEREADY) {
+//   // Save the new content to the cache
+//   appCache.swapCache();
+// }
+// // Listen for updates
+// appCache.addEventListener('updateready', function(e) {
+//   // Reload the page when the cache is updated
+//   window.location.reload();
+// });
 
 // ----- Counter stuff
 
@@ -48,7 +48,7 @@ function dec(model) {
 // Update both the counter and the model
 function update(newModel, element) {
   model = newModel;
-  element.innerText = model;
+  element.textContent = model;
   window.localStorage.setItem('model', model);
 }
 
@@ -66,17 +66,26 @@ decDom.addEventListener('click', function() {
 var onlineStatusDom = document.querySelector('.online-status');
 // navigator.onLine will be true when online and false when offline. We update the text in the online status element in the dom to reflect the online status from navigator.onLine
 if (navigator.onLine) {
-  onlineStatusDom.innerText = 'online';
+  onlineStatusDom.textContent = 'online';
 } else {
-  onlineStatusDom.innerText = 'offline';
+  onlineStatusDom.textContent = 'offline';
 }
 
 // we use the 'online' and 'offline' events to update the online/offline notification to the user
 // in IE8 the offline/online events exist on document.body rather than window, so make sure to reflect that in your code!
 window.addEventListener('offline', function(e) {
-  onlineStatusDom.innerText = 'offline';
+  onlineStatusDom.textContent = 'offline';
 });
 
 window.addEventListener('online', function(e) {
-  onlineStatusDom.innerText = 'online';
+  onlineStatusDom.textContent = 'online';
 });
+
+/* istanbul ignore next */
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    inc: inc,
+    dec: dec,
+    update: update,
+  };
+}
