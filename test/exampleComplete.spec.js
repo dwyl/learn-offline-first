@@ -24,6 +24,7 @@ const count = document.querySelector('.count');
 
 test("If there's no initial state the count starts at 0", t => {
   document = DOM.window.document; // reset global document for this set of tests
+
   let result = count.textContent;
   let expected = '0';
   t.equal(result, expected, 'With no localStorage the count is 0');
@@ -132,9 +133,32 @@ test('Testing online-status/navigator.onLine', t => {
     expected,
     'online-status is "offline" when navigator.onLine is false'
   );
-
   t.end();
 });
+
+test('Testing online/offline events effecting online-status', t => {
+  const goOnline = new window.Event('online', { bubbles: true });
+  document.dispatchEvent(goOnline);
+  let result = document.querySelector('.online-status').textContent;
+  let expected = 'online';
+  t.equal(
+    result,
+    expected,
+    'online-status is "online" after online event fired'
+  );
+
+  const goOffline = new window.Event('offline', { bubbles: true });
+  document.dispatchEvent(goOffline);
+  result = document.querySelector('.online-status').textContent;
+  expected = 'offline';
+  t.equal(
+    result,
+    expected,
+    'online-status is "offline" after offline event fired'
+  );
+  t.end();
+});
+
 test('Reset the globals and remove model from localStorage scratch', t => {
   document = null;
   window = null;
