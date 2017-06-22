@@ -113,6 +113,28 @@ test('Update also updates localStorage', t => {
   t.end();
 });
 
+test('Testing online-status/navigator.onLine', t => {
+  let result = document.querySelector('.online-status').textContent;
+  let expected = 'online';
+  t.equal(
+    result,
+    expected,
+    'online-status is "online" when navigator.onLine is true'
+  );
+
+  decache('./../example-complete/public/script');
+  global.navigator = { onLine: false };
+  let { inc, dec, update } = require('./../example-complete/public/script');
+  result = document.querySelector('.online-status').textContent;
+  expected = 'offline';
+  t.equal(
+    result,
+    expected,
+    'online-status is "offline" when navigator.onLine is false'
+  );
+
+  t.end();
+});
 test('Reset the globals and remove model from localStorage scratch', t => {
   document = null;
   window = null;
