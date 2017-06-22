@@ -2,6 +2,10 @@
 
 Learn how to build web apps that can be used offline!
 
+[![codecov](https://codecov.io/gh/dwyl/learn-offline-first/branch/master/graph/badge.svg)](https://codecov.io/gh/dwyl/learn-offline-first)
+[![Build Status](https://travis-ci.org/dwyl/learn-offline-first.svg?branch=master)](https://travis-ci.org/dwyl/learn-offline-first)
+
+
 ## Why?
 
 The majority of people using the web are using mobile devices,
