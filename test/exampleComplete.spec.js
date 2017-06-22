@@ -2,6 +2,7 @@ const test = require('tape');
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
 const ls = require('node-localstorage').LocalStorage;
+const decache = require('decache');
 
 const html = fs.readFileSync(
   __dirname + '/../example-complete/public/index.html',
@@ -17,18 +18,34 @@ document = DOM.window.document;
 window = DOM.window;
 global.navigator = { onLine: true };
 
-// Initialise localStorage to check the initial model is set from it
-localStorage.setItem('model', '5');
-
-const { inc, dec, update } = require('./../example-complete/public/script');
+let { inc, dec, update } = require('./../example-complete/public/script');
 
 const count = document.querySelector('.count');
 
-test('The counter gets initial state from localStorage if it exists', t => {
+test("If there's no initial state the count starts at 0", t => {
   document = DOM.window.document; // reset global document for this set of tests
   let result = count.textContent;
+  let expected = '0';
+  t.equal(result, expected, 'With no localStorage the count is 0');
+  t.end();
+});
+
+test('If there is localStorage count is set by it', t => {
+  const newDOM = new JSDOM(html); // resets dom
+  document = newDOM.window.document; // reset global document
+
+  // decache the script to test if it re-initialises with localStorage
+  decache('./../example-complete/public/script');
+  localStorage.setItem('model', '5'); // set the localStorage to 5
+
+  // re-require the script
+  let { inc, dec, update } = require('./../example-complete/public/script');
+
+  const count = document.querySelector('.count');
+
+  let result = count.textContent;
   let expected = '5';
-  t.equal(result, expected, 'localStorage initialised count correctly at 5');
+  t.equal(result, expected, 'With localStorage model of 5 count is 5');
   t.end();
 });
 
@@ -44,6 +61,7 @@ test('tests dec decrements and inc increments', t => {
 });
 
 test('update updates an element', t => {
+  document = DOM.window.document; // reset global document
   update(5, count);
   let result = count.textContent;
   let expected = '5';

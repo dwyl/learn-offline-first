@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/dwyl/learn-offline-first#readme",
   "devDependencies": {
+    "decache": "^4.1.0",
+    "istanbul": "^0.4.5",
     "jsdom": "^11.0.0",
     "node-localstorage": "^1.3.0",
     "tap-spec": "^4.1.1",
