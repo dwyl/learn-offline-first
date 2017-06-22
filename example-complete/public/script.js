@@ -81,6 +81,7 @@ window.addEventListener('online', function(e) {
   onlineStatusDom.textContent = 'online';
 });
 
+/* istanbul ignore next */
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     inc: inc,

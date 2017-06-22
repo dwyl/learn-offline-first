@@ -34,6 +34,7 @@ function update(newModel, element) {
   element.textContent = model;
 }
 
+/* istanbul ignore next */
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     inc: inc,

@@ -7,7 +7,8 @@
     "example": "example"
   },
   "scripts": {
-    "test": "tape test/*.js | tap-spec"
+    "test": "tape test/*.js | tap-spec",
+    "coverage": "istanbul cover tape -- test/*.js | tap-spec"
   },
   "repository": {
     "type": "git",

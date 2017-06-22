@@ -13,8 +13,8 @@ const DOM = new JSDOM(html);
 const localStorage = new ls('./scratch');
 DOM.window.localStorage = localStorage;
 
-global.document = DOM.window.document;
-global.window = DOM.window;
+document = DOM.window.document;
+window = DOM.window;
 global.navigator = { onLine: true };
 
 // Initialise localStorage to check the initial model is set from it
@@ -25,6 +25,7 @@ const { inc, dec, update } = require('./../example-complete/public/script');
 const count = document.querySelector('.count');
 
 test('The counter gets initial state from localStorage if it exists', t => {
+  document = DOM.window.document; // reset global document for this set of tests
   let result = count.textContent;
   let expected = '5';
   t.equal(result, expected, 'localStorage initialised count correctly at 5');
@@ -91,5 +92,16 @@ test('Update also updates localStorage', t => {
   result = localStorage.getItem('model');
   expected = '5';
   t.equal(result, expected, 'after update localstorage model is 5');
+  t.end();
+});
+
+test('Reset the globals and remove model from localStorage scratch', t => {
+  document = null;
+  window = null;
+  navigator = null;
+  t.pass('reset document, window and navigator');
+  fs.unlinkSync(__dirname + '/../scratch/model');
+  fs.rmdirSync(__dirname + '/../scratch');
+  t.pass('localStorage scratch removed with model');
   t.end();
 });
