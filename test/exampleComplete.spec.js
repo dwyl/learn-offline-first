@@ -14,6 +14,18 @@ const DOM = new JSDOM(html);
 const localStorage = new ls('./scratch');
 DOM.window.localStorage = localStorage;
 
+// Initialise fake application cache
+const updateCache = _ => 1;
+const swapCache = _ => 1;
+DOM.window.applicationCache = {
+  status: 'idle',
+  IDLE: 'idle',
+  UPDATEREADY: 'updateready',
+  update: updateCache,
+  swapCache: swapCache,
+  addEventListener: DOM.window.addEventListener,
+};
+
 document = DOM.window.document;
 window = DOM.window;
 global.navigator = { onLine: true };
@@ -34,6 +46,10 @@ test("If there's no initial state the count starts at 0", t => {
 test('If there is localStorage count is set by it', t => {
   const newDOM = new JSDOM(html); // resets dom
   document = newDOM.window.document; // reset global document
+  const appcache = window.applicationCache;
+  window = newDOM.window;
+  window.localStorage = localStorage;
+  window.applicationCache = appcache;
 
   // decache the script to test if it re-initialises with localStorage
   decache('./../example-complete/public/script');
@@ -156,6 +172,76 @@ test('Testing online/offline events effecting online-status', t => {
     expected,
     'online-status is "offline" after offline event fired'
   );
+  t.end();
+});
+
+test('Test the app runs an update on start if appcache.status is idle', t => {
+  const newDOM = new JSDOM(html); // resets dom
+  document = newDOM.window.document; // reset global document
+  window = newDOM.window;
+  window.localStorage = localStorage;
+
+  let updateRun = false;
+  let swapRun = false;
+  const updateCache = _ => {
+    updateRun = true;
+  };
+  const swapCache = _ => {
+    swapRun = true;
+  };
+
+  newDOM.window.applicationCache = {
+    status: '1',
+    IDLE: '1',
+    UPDATEREADY: '4',
+    update: updateCache,
+    swapCache: swapCache,
+    addEventListener: DOM.window.addEventListener,
+  };
+
+  // decache the script to test if it re-initialises with localStorage
+  decache('./../example-complete/public/script');
+  // re-require the script
+  let { inc, dec, update } = require('./../example-complete/public/script');
+
+  t.ok(updateRun, 'When appcache status equals idle update is run');
+  t.ok(!swapRun, 'When appcache status equals idle swap is not run');
+
+  t.end();
+});
+
+test('Test the app runs swap on start if appcache.status is UPDATEREADY', t => {
+  const newDOM = new JSDOM(html); // resets dom
+  document = newDOM.window.document; // reset global document
+  window = newDOM.window;
+  window.localStorage = localStorage;
+
+  let updateRun = false;
+  let swapRun = false;
+  const updateCache = () => {
+    updateRun = true;
+  };
+  const swapCache = () => {
+    swapRun = true;
+  };
+
+  newDOM.window.applicationCache = {
+    status: '4',
+    IDLE: '1',
+    UPDATEREADY: '4',
+    update: updateCache,
+    swapCache: swapCache,
+    addEventListener: DOM.window.addEventListener,
+  };
+
+  // decache the script to test if it re-initialises with localStorage
+  decache('./../example-complete/public/script');
+  // re-require the script
+  let { inc, dec, update } = require('./../example-complete/public/script');
+
+  t.ok(!updateRun, 'When appcache status equals updateready update is not run');
+  t.ok(swapRun, 'When appcache status equals updateready swap is run');
+
   t.end();
 });
 
