@@ -198,7 +198,7 @@ For this we'll need to access the browser's internal storage.
 
 As we're using Application Cache (great browser support :tv:)
 we'll go for Local Storage (great browser support :computer:).
-[See below for Storing Options](#Options-for-storing-application-state-locally)
+[See below for Storing Options](#options-for-storing-application-state-locally)
 for more information on the other available options
 for storing data in the browser.
 
@@ -289,6 +289,9 @@ window.addEventListener('online', function(e) {
   onlineStatusDom.innerText = 'online';
 });
 ```
+
+## Reading
+
 #### Options for storing application state locally
 
 In our example we've used `localStorage` as it has awesome :heart_eyes:
@@ -309,10 +312,10 @@ will use local storage, all with one syntax so you don't have to worry
 about which to use.
 
 Options for these include:
-+ PouchDB
-+ LocalForage
-+ ydn-db
-+ Lawnchair
+- [localForage](https://github.com/localForage/localForage)
+- [ydn-db](https://github.com/yathit/ydn-db)
+- [Lawnchair](https://github.com/brianleroux/lawnchair)
+- [pouchDB](https://github.com/pouchdb/pouchdb)
 
 PouchDB and LocalForage both use
 [promises](https://developers.google.com/web/fundamentals/getting-started/primers/promises)
@@ -325,3 +328,19 @@ the syntax can be a little much when just starting with offline first apps.
 To start with, we'd reccomend using local storage, like we have in our example,
 and when you're comfortable with that, have a play with some of the APIs
 to see which you feel fits your needs the best.
+
+#### General offline first
+
+Useful resources for creating Offline-First web apps: https://github.com/pazguille/offline-first
+
+#### Application cache
+
++ Great overview of application cache: http://diveintohtml5.info/offline.html
++ Iphone specific application cache guide: https://www.thecssninja.com/css/how-to-create-offline-webapps-on-the-iphone
++ Beginner's guide: https://www.html5rocks.com/en/tutorials/appcache/beginner/
++ Nolan Lawsom presentation on offline first: http://nolanlawson.github.io/offline-first-presentation/
+
+#### Service workers
+
++ Introduction to service workers: https://developers.google.com/web/fundamentals/getting-started/primers/service-workers
++ Service Worker Precache (module for generating a service worker): https://github.com/GoogleChrome/sw-precache
