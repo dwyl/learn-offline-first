@@ -2,6 +2,10 @@
 
 Learn how to build web apps that can be used offline!
 
+[![codecov](https://codecov.io/gh/dwyl/learn-offline-first/branch/master/graph/badge.svg)](https://codecov.io/gh/dwyl/learn-offline-first)
+[![Build Status](https://travis-ci.org/dwyl/learn-offline-first.svg?branch=master)](https://travis-ci.org/dwyl/learn-offline-first)
+
+
 ## Why?
 
 The majority of people using the web are using mobile devices,
@@ -92,6 +96,16 @@ npm run dev
 
 Visit `http://localhost:4000/` in your browser to check out the counter!
 
+#### What about the tests?!? :white_check_mark: :100:
+
+:sparkles: If you want to run the tests then
+```
+npm test
+```
+:sparkles: and if you'd like to see our test coverage run
+```
+npm run coverage
+```
 #### 3. Open the public folder in your favourite text editor
 
 ## Adding offline support
